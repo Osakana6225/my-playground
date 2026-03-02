@@ -1,4 +1,19 @@
 import time
+import subprocess
+import os
+
+def play_alarm():
+    sound_file = "/System/Library/Sounds/Glass.aiff"
+    if os.path.exists(sound_file):
+        for _ in range(3):
+            subprocess.Popen(["afplay", sound_file])
+            time.sleep(0.5)
+    else:
+        # サウンドファイルが見つからない場合、ターミナルのベル音を鳴らす
+        for _ in range(3):
+            print("\a", end="", flush=True)
+            time.sleep(0.5)
+
 
 def countdown_timer(seconds):
     print(f"\n⏱ {seconds}秒のタイマーを開始します！\n")
@@ -11,6 +26,7 @@ def countdown_timer(seconds):
     
     print("\r00:00")
     print("\n✅ 時間です！\n")
+    play_alarm()
 
 def main():
     print("=== カウントダウンタイマー ===")
